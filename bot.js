@@ -1,4 +1,4 @@
-// 必要なライブラリを読み込む
+
 const { Client, Events, GatewayIntentBits } = require('discord.js');
 const axios = require('axios');
 const { token, channelid } = require('./config.json'); // トークンとチャンネルIDを読み込む
@@ -10,7 +10,7 @@ let sentCommentIds = new Set();
 // Discordのクライアントを作成
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-// クライアントが準備完了したときに一度だけ実行される関数
+
 client.once(Events.ClientReady, c => {
     console.log(`OK login ${c.user.tag}`);
     setInterval(fetchAndSendNewComments, 60000); // 1分ごとにコメントを取得する
