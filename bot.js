@@ -24,16 +24,16 @@ function fetchAndSendNewComments() {
         .then(response => {
             const comments = response.data;
             if (comments.length > 0) {
-                // 新しいコメントのみをフィルター
+                
                 const newComments = comments.filter(comment => !sentCommentIds.has(comment.id));
                 if (newComments.length > 0) {
-                    // コメントを古い順に並べ替え
+                
                     newComments.sort((a, b) => new Date(a.datetime_created) - new Date(b.datetime_created));
-                    // コメントを一つずつ送信
+             
                     newComments.forEach(comment => {
                         const messageContent = `[@${comment.author.username}](https://scratch.mit.edu/users/${comment.author.username}): ${comment.content}`;
                         sendMessageToDiscord(messageContent);
-                        // 送信済みコメントのIDを保存
+                 
                         sentCommentIds.add(comment.id);
                     });
                 } else {
