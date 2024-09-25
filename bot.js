@@ -1,25 +1,24 @@
 
 const { Client, Events, GatewayIntentBits } = require('discord.js');
 const axios = require('axios');
-const { token, channelid } = require('./config.json'); // トークンとチャンネルIDを読み込む
+const { token, channelid } = require('./config.json'); 
 const studioid = "hoge"; // スタジオID
 
-// 送信済みコメントのIDを保存するセット
+
 let sentCommentIds = new Set();
 
-// Discordのクライアントを作成
+
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 
 client.once(Events.ClientReady, c => {
     console.log(`OK login ${c.user.tag}`);
-    setInterval(fetchAndSendNewComments, 60000); // 1分ごとにコメントを取得する
+    setInterval(fetchAndSendNewComments, 60000); 
 });
 
-// Discordにログイン
+
 client.login(token);
 
-// コメントを取得し、新しいコメントのみを送信する関数
 function fetchAndSendNewComments() {
     axios.get(`https://api.scratch.mit.edu/studios/${studioid}/comments?offset=0&limit=40`)
         .then(response => {
@@ -49,7 +48,7 @@ function fetchAndSendNewComments() {
         });
 }
 
-// Discordにメッセージを送信する関数
+
 function sendMessageToDiscord(messageContent) {
     const channel = client.channels.cache.get(channelid);
     if (channel) {
